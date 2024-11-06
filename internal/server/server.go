@@ -15,9 +15,9 @@
 //go:build linux
 
 /*
-Package procedure is the main action package.
+Package server controls log_manager module
 */
-package procedure
+package server
 
 import (
 	"fmt"
@@ -27,10 +27,10 @@ import (
 	"strconv"
 	"syscall"
 
-	"github.com/hoon-kr/log_manager/config"
-	"github.com/hoon-kr/log_manager/logger"
-	"github.com/hoon-kr/log_manager/utils/file"
-	"github.com/hoon-kr/log_manager/utils/process"
+	"github.com/hoon-kr/log_manager/internal/config"
+	"github.com/hoon-kr/log_manager/internal/logger"
+	"github.com/hoon-kr/log_manager/pkg/utils/file"
+	"github.com/hoon-kr/log_manager/pkg/utils/process"
 	"github.com/spf13/cobra"
 )
 
@@ -83,7 +83,6 @@ func StartServer(cmd *cobra.Command) (int, error) {
 	// In debug mode, stdout, stderr is output to the console
 	if cmd.Use == "debug" {
 		config.RunConf.DebugMode = true
-		fmt.Fprintf(os.Stdout, "[INFO] start %s (debug mode)\n", config.ModuleName)
 	} else {
 		os.Stdout = nil
 		os.Stderr = nil
@@ -97,9 +96,13 @@ func StartServer(cmd *cobra.Command) (int, error) {
 	// Finalization at the end of the module
 	defer finalization()
 
-	logger.Log.LogInfo("Start %s (pid:%d)", config.ModuleName, config.RunConf.Pid)
-
-	// TODO: implements main logic
+	logger.Log.LogInfo("Start %s (pid:%d, mode:%s)", config.ModuleName, config.RunConf.Pid,
+		func() string {
+			if config.RunConf.DebugMode {
+				return "debug"
+			}
+			return "normal"
+		}())
 
 	// Wait for the signal to terminate (SIGINT, SIGTERM)
 	sig := <-sigChan

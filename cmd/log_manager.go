@@ -24,8 +24,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/hoon-kr/log_manager/config"
-	"github.com/hoon-kr/log_manager/procedure"
+	"github.com/hoon-kr/log_manager/internal/config"
+	"github.com/hoon-kr/log_manager/internal/server"
 	"github.com/spf13/cobra"
 	"go.uber.org/automaxprocs/maxprocs"
 )
@@ -44,7 +44,7 @@ var startCmd = &cobra.Command{
 	Use:   "start",
 	Short: "Run log_manager (normal mode)",
 	// Run the log management daemon
-	RunE: wrapCommandFuncForCobra(procedure.StartServer),
+	RunE: wrapCommandFuncForCobra(server.StartServer),
 }
 
 // debugCmd run server (debug)
@@ -52,7 +52,7 @@ var debugCmd = &cobra.Command{
 	Use:   "debug",
 	Short: "Run log_manager (debug mode)",
 	// Run the log management daemon (debug)
-	RunE: wrapCommandFuncForCobra(procedure.StartServer),
+	RunE: wrapCommandFuncForCobra(server.StartServer),
 }
 
 // stopCmd stop server
@@ -60,7 +60,7 @@ var stopCmd = &cobra.Command{
 	Use:   "stop",
 	Short: "Stop log_manager",
 	// Stop the log management daemon
-	RunE: wrapCommandFuncForCobra(procedure.StopServer),
+	RunE: wrapCommandFuncForCobra(server.StopServer),
 }
 
 // init Initialize when importing cmd packages.

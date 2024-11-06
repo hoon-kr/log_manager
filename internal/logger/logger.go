@@ -23,7 +23,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hoon-kr/log_manager/config"
+	"github.com/hoon-kr/log_manager/internal/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
