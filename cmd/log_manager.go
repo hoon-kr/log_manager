@@ -24,7 +24,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/hoon-kr/log_manager/internal/config"
+	"github.com/hoon-kr/log_manager/config"
 	"github.com/hoon-kr/log_manager/internal/server"
 	"github.com/spf13/cobra"
 	"go.uber.org/automaxprocs/maxprocs"

@@ -27,7 +27,7 @@ import (
 	"strconv"
 	"syscall"
 
-	"github.com/hoon-kr/log_manager/internal/config"
+	"github.com/hoon-kr/log_manager/config"
 	"github.com/hoon-kr/log_manager/internal/logger"
 	"github.com/hoon-kr/log_manager/pkg/utils/file"
 	"github.com/hoon-kr/log_manager/pkg/utils/process"
